@@ -1,6 +1,6 @@
 ---
 name: ohmycodex-team
-description: Configure and orchestrate OhMyCodex native subagent teams. Use when a task has independent investigation, multi-file uncertainty, cross-disciplinary work, parallel exploration, team mode, or users ask to delegate work to Explorer, Librarian, Architect, QA, Debugger, Implementer, or Reviewer roles.
+description: Configure and run OhMyCodex native subagent teams. Use for parallel investigation, multi-file uncertainty, team mode, or delegation to Explorer, Librarian, Architect, QA, Debugger, Implementer, or Reviewer.
 ---
 
 # OhMyCodex Team
