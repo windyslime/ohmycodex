@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+import tomllib
 from pathlib import Path
 
 
@@ -28,6 +29,18 @@ REQUIRED_SKILLS = {
     "ohmycodex-review",
     "ohmycodex-release",
     "ohmycodex-debt",
+    "ohmycodex-team",
+}
+TEAM_AGENTS = PLUGIN / "skills" / "ohmycodex-team" / "assets" / "agents"
+TEAM_POLICY = {
+    "omc-explorer.toml": ("omc-explorer", "gpt-5.6-luna", "low", "read-only"),
+    "omc-librarian.toml": ("omc-librarian", "gpt-5.6-luna", "medium", "read-only"),
+    "omc-qa.toml": ("omc-qa", "gpt-5.6-luna", "medium", "read-only"),
+    "omc-architect.toml": ("omc-architect", "gpt-5.6", "xhigh", "read-only"),
+    "omc-implementer.toml": ("omc-implementer", "gpt-5.6-terra", "high", "workspace-write"),
+    "omc-debugger.toml": ("omc-debugger", "gpt-5.6-terra", "high", "read-only"),
+    "omc-reviewer.toml": ("omc-reviewer", "gpt-5.6", "high", "read-only"),
+    "omc-fallback.toml": ("omc-fallback", "gpt-5.5", "high", None),
 }
 
 
@@ -51,8 +64,8 @@ def validate_manifest() -> None:
         fail(f"plugin manifest is missing: {', '.join(sorted(missing))}")
     if manifest["name"] != "ohmycodex" or manifest["skills"] != "./skills/":
         fail("plugin manifest must identify ohmycodex and ./skills/")
-    if manifest["version"] != "0.1.0":
-        fail("plugin manifest must use the planned 0.1.0 release version")
+    if manifest["version"] != "0.2.0":
+        fail("plugin manifest must use the planned 0.2.0 release version")
     if manifest["license"] != "MIT":
         fail("plugin manifest must declare MIT")
     interface = manifest["interface"]
@@ -111,13 +124,45 @@ def validate_skills() -> None:
             fail(f"{skill_name} UI metadata must include an explicit default prompt")
 
 
+def validate_team_agents() -> None:
+    discovered = {path.name for path in TEAM_AGENTS.glob("*.toml")}
+    expected = set(TEAM_POLICY)
+    if discovered != expected:
+        fail(f"Team template mismatch; missing={sorted(expected - discovered)}, extra={sorted(discovered - expected)}")
+
+    names: set[str] = set()
+    for filename, (name, model, effort, sandbox) in TEAM_POLICY.items():
+        path = TEAM_AGENTS / filename
+        try:
+            agent = tomllib.loads(path.read_text(encoding="utf-8"))
+        except (OSError, tomllib.TOMLDecodeError) as error:
+            fail(f"{path.relative_to(ROOT)} is not valid TOML: {error}")
+        if agent.get("name") != name or agent.get("model") != model:
+            fail(f"{filename} must use {name} with {model}")
+        if agent.get("model_reasoning_effort") != effort:
+            fail(f"{filename} must use {effort} reasoning")
+        if sandbox is None:
+            if "sandbox_mode" in agent:
+                fail(f"{filename} must inherit the parent sandbox policy")
+        elif agent.get("sandbox_mode") != sandbox:
+            fail(f"{filename} must use {sandbox} sandbox mode")
+        if not agent.get("description") or not agent.get("developer_instructions"):
+            fail(f"{filename} must include description and developer instructions")
+        if name in names:
+            fail(f"Team agent name is duplicated: {name}")
+        names.add(name)
+        if "gpt-5.4" in model:
+            fail(f"{filename} must not use a GPT-5.4 model")
+
+
 def main() -> None:
-    for path in (MANIFEST, MARKETPLACE, SKILLS):
+    for path in (MANIFEST, MARKETPLACE, SKILLS, TEAM_AGENTS):
         if not path.exists():
             fail(f"required path is missing: {path.relative_to(ROOT)}")
     validate_manifest()
     validate_marketplace()
     validate_skills()
+    validate_team_agents()
     print("OhMyCodex validation passed.")
 
 

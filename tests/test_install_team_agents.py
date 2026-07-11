@@ -32,6 +32,7 @@ class InstallTeamAgentsTests(unittest.TestCase):
         self.assertEqual(result.created, list(AGENT_FILENAMES))
         self.assertEqual(result.skipped, [])
         self.assertFalse(result.dry_run)
+        self.assertTrue(result.config_updated)
         config = (self.target / ".codex" / "config.toml").read_text(encoding="utf-8")
         self.assertIn("[agents]", config)
         self.assertIn("max_threads = 4", config)
@@ -50,6 +51,7 @@ class InstallTeamAgentsTests(unittest.TestCase):
         result = install_templates(self.target)
 
         self.assertIn("omc-explorer.toml", result.skipped)
+        self.assertFalse(result.config_updated)
         self.assertEqual(owned.read_text(encoding="utf-8"), 'name = "omc-explorer"\nmodel = "custom"\n')
         self.assertEqual(config.read_text(encoding="utf-8"), "[agents]\nmax_threads = 2\n")
 
@@ -58,6 +60,7 @@ class InstallTeamAgentsTests(unittest.TestCase):
 
         self.assertTrue(result.dry_run)
         self.assertEqual(result.created, list(AGENT_FILENAMES))
+        self.assertTrue(result.config_updated)
         self.assertFalse((self.target / ".codex").exists())
 
 

@@ -9,7 +9,7 @@ It is intentionally not an agent runtime. It ships no MCP server, hooks, telemet
 After the first GitHub release is published, add the repository marketplace and install the plugin:
 
 ```bash
-codex plugin marketplace add windyslime/ohmycodex --ref v0.1.0 --sparse .agents/plugins
+codex plugin marketplace add windyslime/ohmycodex --ref v0.2.0 --sparse .agents/plugins
 codex plugin add ohmycodex@ohmycodex
 ```
 
@@ -36,6 +36,12 @@ On first use, the plugin creates `.ohmycodex/` in the target project. It keeps t
 | Ship and track trade-offs | `ohmycodex-release`, `ohmycodex-debt` |
 
 See [the skill catalog](docs/skill-catalog.md) and [compatibility notes](docs/compatibility.md).
+
+## Team mode
+
+Use `$ohmycodex-team` for complex work that benefits from independent investigation. In local Codex Desktop, CLI, and IDE projects, ask it to enable Team mode; it installs missing project-local `omc-*` custom agent templates without replacing existing `.codex` configuration.
+
+Team mode uses Luna for Explorer, Librarian, and QA; Terra for Implementer and Debugger; Sol for Architect and Reviewer; and GPT-5.5 only as an explicit fallback. It runs read-only work in parallel, keeps application changes to one writer, and records the consolidated result under `.ohmycodex/plans/team-runs/`. See [Team mode](docs/team-mode.md).
 
 ## Compatibility
 

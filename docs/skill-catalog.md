@@ -5,6 +5,7 @@ All skills are instruction-only and remain useful when a host lacks shell, file-
 | Skill | Primary output |
 | --- | --- |
 | `ohmycodex-orchestrator` | Route and next decision |
+| `ohmycodex-team` | Native subagent installation and team-run consolidation |
 | `ohmycodex-init` | Project profile and workspace |
 | `ohmycodex-discover` | Discovery brief |
 | `ohmycodex-spec` | Approved MVP specification |
