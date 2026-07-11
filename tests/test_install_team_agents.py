@@ -5,6 +5,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 INSTALLER = ROOT / "plugins" / "ohmycodex" / "skills" / "ohmycodex-team" / "scripts" / "install_team_agents.py"
@@ -62,6 +63,24 @@ class InstallTeamAgentsTests(unittest.TestCase):
         self.assertEqual(result.created, list(AGENT_FILENAMES))
         self.assertTrue(result.config_updated)
         self.assertFalse((self.target / ".codex").exists())
+
+    def test_adds_defaults_when_agents_text_only_appears_in_a_comment(self) -> None:
+        config = self.target / ".codex" / "config.toml"
+        config.parent.mkdir(parents=True)
+        config.write_text('# [agents] is configured elsewhere\n', encoding="utf-8")
+
+        result = install_templates(self.target)
+
+        self.assertTrue(result.config_updated)
+        self.assertIn("\n[agents]\nmax_threads = 4", config.read_text(encoding="utf-8"))
+
+    def test_reports_unavailable_when_project_writes_are_denied(self) -> None:
+        with patch.object(MODULE.shutil, "copyfile", side_effect=PermissionError("read-only project")):
+            result = install_templates(self.target)
+
+        self.assertTrue(result.unavailable)
+        self.assertIn("read-only project", result.reason)
+        self.assertEqual(result.created, [])
 
 
 if __name__ == "__main__":

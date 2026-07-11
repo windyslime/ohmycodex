@@ -9,9 +9,9 @@ Use Team only when two or more independent investigations can materially improve
 
 ## Enable local native roles
 
-For a local Codex project, inspect `.codex/agents/` and `.codex/config.toml`. When the user asks to enable Team, run `scripts/install_team_agents.py <repository-root>`. It installs only missing `omc-*.toml` templates and adds `max_threads = 4` and `max_depth = 1` only when the repository has no `[agents]` section.
+For a local Codex project, inspect `.codex/agents/` and `.codex/config.toml`. When the user asks to enable Team, locate this skill's bundled `scripts/install_team_agents.py` and run it with the repository root as its argument. It installs only missing `omc-*.toml` templates and adds `max_threads = 4` and `max_depth = 1` only when the repository has no `[agents]` section.
 
-Never overwrite an existing project-owned agent file or alter an existing `[agents]` section. Explain preserved files and ask before replacing any template.
+Never overwrite an existing project-owned agent file or alter an existing `[agents]` section. Explain preserved files and ask before replacing any template. If the installer reports that project writes are unavailable, continue with sequential fallback and state that native roles were not installed.
 
 Use the installed role names directly:
 

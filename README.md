@@ -45,7 +45,7 @@ Team mode uses Luna for Explorer, Librarian, and QA; Terra for Implementer and D
 
 ## Compatibility
 
-The package is designed for ChatGPT Work on the web, ChatGPT/Codex Desktop, Codex CLI, and the Codex IDE extension. It uses host-neutral instructions and falls back to conversation-only guidance when the current host cannot write files or run commands. Codex cloud is not a supported claim in v0.1.0.
+The package is designed for ChatGPT Work on the web, ChatGPT/Codex Desktop, Codex CLI, and the Codex IDE extension. It uses host-neutral instructions and falls back to conversation-only guidance when the current host cannot write files or run commands. Codex cloud is not a supported claim in v0.2.0.
 
 ## Development
 

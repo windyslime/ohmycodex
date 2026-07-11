@@ -1,6 +1,6 @@
 # Skill catalog
 
-All skills are instruction-only and remain useful when a host lacks shell, file-write, browser, or Git access. Their shared rule is simple: inspect evidence first, preserve user control, and record verified outcomes when `.ohmycodex/` is writable.
+All workflow instructions remain useful when a host lacks shell, file-write, browser, or Git access. Team additionally bundles a standard-library installer for local native-agent templates. Their shared rule is simple: inspect evidence first, preserve user control, and record verified outcomes when `.ohmycodex/` is writable.
 
 | Skill | Primary output |
 | --- | --- |

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import shutil
 from dataclasses import dataclass
 from pathlib import Path
@@ -19,6 +20,7 @@ AGENT_FILENAMES = (
     "omc-reviewer.toml",
     "omc-fallback.toml",
 )
+AGENTS_TABLE_RE = re.compile(r"(?m)^\s*\[agents\]\s*(?:#.*)?$")
 
 
 @dataclass
@@ -27,6 +29,8 @@ class InstallResult:
     skipped: list[str]
     dry_run: bool
     config_updated: bool
+    unavailable: bool = False
+    reason: str = ""
 
 
 def template_directory() -> Path:
@@ -46,34 +50,44 @@ def install_templates(target: Path, dry_run: bool = False) -> InstallResult:
     skipped: list[str] = []
     config_updated = False
 
-    for filename in AGENT_FILENAMES:
-        destination = agents_directory / filename
-        if destination.exists():
-            skipped.append(filename)
-            continue
-        created.append(filename)
-        if not dry_run:
-            agents_directory.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(source / filename, destination)
+    try:
+        for filename in AGENT_FILENAMES:
+            destination = agents_directory / filename
+            if destination.exists():
+                skipped.append(filename)
+                continue
+            if not dry_run:
+                agents_directory.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(source / filename, destination)
+            created.append(filename)
 
-    if config_path.exists():
-        existing = config_path.read_text(encoding="utf-8")
-        if "[agents]" in existing:
-            skipped.append("config.toml [agents]")
+        if config_path.exists():
+            existing = config_path.read_text(encoding="utf-8")
+            if AGENTS_TABLE_RE.search(existing):
+                skipped.append("config.toml [agents]")
+            else:
+                config_updated = True
+                if not dry_run:
+                    config_path.parent.mkdir(parents=True, exist_ok=True)
+                    separator = "" if not existing or existing.endswith("\n") else "\n"
+                    config_path.write_text(
+                        f"{existing}{separator}[agents]\nmax_threads = 4\nmax_depth = 1\n",
+                        encoding="utf-8",
+                    )
         else:
             config_updated = True
             if not dry_run:
                 config_path.parent.mkdir(parents=True, exist_ok=True)
-                separator = "" if not existing or existing.endswith("\n") else "\n"
-                config_path.write_text(
-                    f"{existing}{separator}[agents]\nmax_threads = 4\nmax_depth = 1\n",
-                    encoding="utf-8",
-                )
-    else:
-        config_updated = True
-        if not dry_run:
-            config_path.parent.mkdir(parents=True, exist_ok=True)
-            config_path.write_text("[agents]\nmax_threads = 4\nmax_depth = 1\n", encoding="utf-8")
+                config_path.write_text("[agents]\nmax_threads = 4\nmax_depth = 1\n", encoding="utf-8")
+    except PermissionError as error:
+        return InstallResult(
+            created=created,
+            skipped=skipped,
+            dry_run=dry_run,
+            config_updated=config_updated,
+            unavailable=True,
+            reason=str(error),
+        )
 
     return InstallResult(
         created=created,
@@ -95,6 +109,8 @@ def main() -> None:
         print(f"Preserved: {', '.join(result.skipped)}")
     if result.config_updated:
         print("Added missing [agents] defaults.")
+    if result.unavailable:
+        print(f"Native Team installation unavailable: {result.reason}")
 
 
 if __name__ == "__main__":
