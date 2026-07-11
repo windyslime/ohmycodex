@@ -7,6 +7,8 @@ description: Design a change-safe architecture for an approved MVP specification
 
 Inspect the existing repository before proposing changes. Read the approved MVP specification and preserve stable patterns unless they conflict with a concrete requirement.
 
+For a cross-module architecture question with independent repository and documentation unknowns, use `ohmycodex-team` to run Explorer and Librarian in parallel. Consolidate their evidence before making architectural decisions; do not delegate writing.
+
 Define focused modules with one responsibility each. Specify public contracts: inputs, outputs, nullability, events, loading/error states, persistence boundaries, and ownership. List files to create or modify, identify risky existing paths, and prefer extension over rewrites.
 
 Address invalid input, empty data, partial responses, retry behavior, repeated actions, offline or slow requests, and observability without logging secrets. Include test seams and rollback-safe milestones.
