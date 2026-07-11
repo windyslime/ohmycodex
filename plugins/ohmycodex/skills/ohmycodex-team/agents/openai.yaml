@@ -1,0 +1,4 @@
+interface:
+  display_name: "OhMyCodex Team"
+  short_description: "Configure and run native subagent teams"
+  default_prompt: "Use $ohmycodex-team to delegate this complex task safely."

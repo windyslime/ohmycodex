@@ -17,6 +17,7 @@ Create the following files only when the host grants write access. Never overwri
     diagnosis.md
     refactor.md
     review.md
+    team-runs/
   releases/
     checklist.md
 ```
@@ -34,3 +35,7 @@ For each material decision record context, options considered, selected option, 
 ## Evidence record
 
 For tests, reviews, diagnostics, and releases record the exact command or inspection, result, unresolved risk, and next owner. Never claim a command passed unless it ran successfully in the current environment.
+
+## Team run record
+
+Create one timestamped file under `plans/team-runs/` for each Team run. Record the objective, parent task, requested roles, configured model and reasoning effort, fallback substitutions, task contract, conclusion, evidence, risks, and the parent consolidation. Mark sequential fallback when the host cannot launch native subagents.
