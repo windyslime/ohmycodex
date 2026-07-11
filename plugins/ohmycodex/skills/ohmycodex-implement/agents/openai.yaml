@@ -1,0 +1,4 @@
+interface:
+  display_name: "Implement Safely"
+  short_description: "Build approved work in verified milestones"
+  default_prompt: "Use $ohmycodex-implement to execute the approved plan."

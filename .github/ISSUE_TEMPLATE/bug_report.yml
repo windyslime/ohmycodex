@@ -1,0 +1,20 @@
+name: Bug report
+description: Report an incorrect skill workflow or package behavior.
+labels: [bug]
+body:
+  - type: textarea
+    attributes:
+      label: Prompt and surface
+      description: Include the prompt, Codex surface, plugin version, and whether the workspace was writable.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected and actual behavior
+      description: Explain what the selected skill should have done and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Evidence
+      description: Include redacted logs, artifact paths, or screenshots. Do not include secrets.

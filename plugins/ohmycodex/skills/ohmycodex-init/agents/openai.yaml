@@ -1,0 +1,4 @@
+interface:
+  display_name: "Initialize OhMyCodex"
+  short_description: "Create durable project engineering context"
+  default_prompt: "Use $ohmycodex-init to initialize this project workspace."

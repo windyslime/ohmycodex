@@ -1,0 +1,4 @@
+interface:
+  display_name: "Specify the MVP"
+  short_description: "Define scope and acceptance criteria"
+  default_prompt: "Use $ohmycodex-spec to write a scoped MVP specification."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Discover the MVP"
+  short_description: "Clarify users, outcomes, and MVP scope"
+  default_prompt: "Use $ohmycodex-discover to clarify this product idea."

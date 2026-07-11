@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prepare a Release"
+  short_description: "Decide go or no-go with evidence"
+  default_prompt: "Use $ohmycodex-release to assess release readiness."

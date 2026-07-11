@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verify the Work"
+  short_description: "Test acceptance paths and regressions"
+  default_prompt: "Use $ohmycodex-qa to verify this implementation."

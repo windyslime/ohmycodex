@@ -1,0 +1,28 @@
+{
+  "name": "ohmycodex",
+  "version": "0.1.0",
+  "description": "A complete engineering workflow for AI-assisted MVPs in Codex.",
+  "author": {
+    "name": "Zhengda Wu",
+    "url": "https://github.com/windyslime"
+  },
+  "homepage": "https://github.com/windyslime/ohmycodex",
+  "repository": "https://github.com/windyslime/ohmycodex",
+  "license": "MIT",
+  "keywords": ["codex", "vibe-coding", "mvp", "engineering", "skills"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "OhMyCodex",
+    "shortDescription": "Engineering workflows for AI-built MVPs.",
+    "longDescription": "Plan, build, verify, review, and release AI-assisted products with persistent project context and practical engineering guardrails.",
+    "developerName": "Zhengda Wu",
+    "category": "Productivity",
+    "capabilities": ["Write"],
+    "websiteURL": "https://github.com/windyslime/ohmycodex",
+    "defaultPrompt": [
+      "Use $ohmycodex-orchestrator to turn my app idea into a buildable MVP.",
+      "Use $ohmycodex-review to audit this AI-generated codebase.",
+      "Use $ohmycodex-release to prepare this project for a safe release."
+    ]
+  }
+}

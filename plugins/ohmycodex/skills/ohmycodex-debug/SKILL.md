@@ -1,0 +1,12 @@
+---
+name: ohmycodex-debug
+description: Diagnose bugs and regressions with evidence before changing code. Use when a feature is broken, a command fails, behavior is unexpected, performance regresses, or users ask to debug or find root cause.
+---
+
+# Diagnose Before Fixing
+
+Read the project profile, relevant specification, recent changes, logs, error output, and reproducible steps. Establish the observed behavior, expected behavior, affected scope, and smallest reliable reproduction.
+
+Form competing hypotheses and gather discriminating evidence with narrow tests, traces, or static inspection. Do not edit application code until the most likely root cause is supported by evidence. Separate root cause from correlated symptoms.
+
+After user-approved remediation, add a regression test or explicit reason one is infeasible. Record reproduction, evidence, root cause, fix boundary, test result, and residual risk in `.ohmycodex/plans/diagnosis.md`.

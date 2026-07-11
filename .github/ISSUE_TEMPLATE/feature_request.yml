@@ -1,0 +1,20 @@
+name: Workflow proposal
+description: Propose a focused improvement to an existing skill or a new workflow.
+labels: [enhancement]
+body:
+  - type: textarea
+    attributes:
+      label: User prompt
+      description: Give the realistic prompt that should trigger this workflow.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected artifact or behavior
+      description: State the useful output and the failure mode it would prevent.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Scope boundary
+      description: State what this proposal must not add, such as an MCP, runtime, telemetry, or new dependency.

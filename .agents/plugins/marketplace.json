@@ -1,0 +1,20 @@
+{
+  "name": "ohmycodex",
+  "interface": {
+    "displayName": "OhMyCodex"
+  },
+  "plugins": [
+    {
+      "name": "ohmycodex",
+      "source": {
+        "source": "local",
+        "path": "./plugins/ohmycodex"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

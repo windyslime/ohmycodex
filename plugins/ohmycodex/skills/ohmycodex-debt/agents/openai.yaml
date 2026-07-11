@@ -1,0 +1,4 @@
+interface:
+  display_name: "Track Technical Debt"
+  short_description: "Record intentional engineering trade-offs"
+  default_prompt: "Use $ohmycodex-debt to record this technical debt."

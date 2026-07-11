@@ -1,0 +1,4 @@
+interface:
+  display_name: "Review the Change"
+  short_description: "Audit code against the active specification"
+  default_prompt: "Use $ohmycodex-review to inspect this change."
