@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "OhMyCodex English",
+    "short_description": "Restore OhMyCodex metadata to English",
+    "default_prompt": "Use $omc-en to restore OhMyCodex English metadata."
+  },
+  "policy": {
+    "allow_implicit_invocation": false
+  }
+}

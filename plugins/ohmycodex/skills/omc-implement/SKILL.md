@@ -5,6 +5,8 @@ description: Implement an approved OhMyCodex plan incrementally and safely. Use 
 
 # Implement Safely
 
+Read [the Language Policy](../omc-orchestrator/references/language-policy.md) before responding or writing OhMyCodex artifacts.
+
 Read the project profile, approved specification, architecture plan, and current Git status. If no approved plan exists, route to `omc-architecture` instead of inventing scope.
 
 Before editing, state files to change, stable behavior to preserve, commands to verify, and any required dependency or permission change. Ask for confirmation before adding a production dependency, changing deployment configuration, or taking an external action.

@@ -15,6 +15,7 @@ PLUGIN = ROOT / "plugins" / "ohmycodex"
 SKILLS = PLUGIN / "skills"
 MANIFEST = PLUGIN / ".codex-plugin" / "plugin.json"
 MARKETPLACE = ROOT / ".agents" / "plugins" / "marketplace.json"
+LOCALES = PLUGIN / "assets" / "locales"
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 IMPLICIT_SKILLS = {
     "omc-orchestrator",
@@ -33,6 +34,8 @@ IMPLICIT_SKILLS = {
 }
 EXPLICIT_SKILLS = {
     "omc-doctor",
+    "omc-cn",
+    "omc-en",
     "omc-loop",
     "omc-intentgate",
     "omc-letgo",
@@ -140,6 +143,57 @@ def validate_skills() -> None:
             fail(f"{skill_name} must preserve its {policy} invocation policy")
 
 
+def validate_locales() -> None:
+    expected_files = {"en.json", "zh-CN.json"}
+    discovered_files = {path.name for path in LOCALES.glob("*.json")}
+    if discovered_files != expected_files:
+        fail(
+            "locale catalogs mismatch; "
+            f"missing={sorted(expected_files - discovered_files)}, "
+            f"extra={sorted(discovered_files - expected_files)}"
+        )
+    manifest_fields = {
+        "description",
+        "displayName",
+        "shortDescription",
+        "longDescription",
+        "defaultPrompt",
+    }
+    skill_fields = {"display_name", "short_description", "default_prompt"}
+    catalogs = {locale: read_json(LOCALES / f"{locale}.json") for locale in ("en", "zh-CN")}
+    for locale, catalog in catalogs.items():
+        if set(catalog) != {"schema_version", "locale", "manifest", "skills"}:
+            fail(f"{locale} locale catalog has an invalid top-level schema")
+        if catalog["schema_version"] != 1 or catalog["locale"] != locale:
+            fail(f"{locale} locale catalog identity is invalid")
+        if set(catalog["manifest"]) != manifest_fields:
+            fail(f"{locale} manifest locale fields are incomplete")
+        if len(catalog["manifest"]["defaultPrompt"]) != 3:
+            fail(f"{locale} manifest locale must contain three starter prompts")
+        if set(catalog["skills"]) != REQUIRED_SKILLS:
+            fail(f"{locale} locale catalog must cover all 19 Skills exactly")
+        for name, metadata in catalog["skills"].items():
+            if set(metadata) != skill_fields:
+                fail(f"{locale} locale fields are invalid for {name}")
+            if f"${name}" not in metadata["default_prompt"]:
+                fail(f"{locale} locale prompt must reference ${name}")
+
+    manifest = read_json(MANIFEST)
+    english_manifest = catalogs["en"]["manifest"]
+    if manifest["description"] != english_manifest["description"]:
+        fail("checked-in manifest description must match the English catalog")
+    for field in manifest_fields - {"description"}:
+        if manifest["interface"][field] != english_manifest[field]:
+            fail(f"checked-in manifest {field} must match the English catalog")
+    for name in REQUIRED_SKILLS:
+        skill = SKILLS / name / "SKILL.md"
+        if "language-policy.md" not in skill.read_text(encoding="utf-8"):
+            fail(f"{name} must load the shared language policy")
+        metadata = read_json(SKILLS / name / "agents" / "openai.yaml")
+        if metadata["interface"] != catalogs["en"]["skills"][name]:
+            fail(f"checked-in {name} metadata must match the English catalog")
+
+
 def validate_team_agents() -> None:
     discovered = {path.name for path in TEAM_AGENTS.glob("*.toml")}
     expected = set(TEAM_POLICY)
@@ -178,6 +232,7 @@ def main() -> None:
     validate_manifest()
     validate_marketplace()
     validate_skills()
+    validate_locales()
     validate_team_agents()
     print("OhMyCodex validation passed.")
 

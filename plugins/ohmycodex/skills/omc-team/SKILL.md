@@ -5,6 +5,8 @@ description: Configure and run OhMyCodex native subagent teams. Use for parallel
 
 # OhMyCodex Team
 
+Read [the Language Policy](../omc-orchestrator/references/language-policy.md) before responding or writing OhMyCodex artifacts.
+
 Use Team only when two or more independent investigations can materially improve speed or decision quality. Keep small, local, or single-file work in the parent task.
 
 ## Enable local native roles

@@ -9,7 +9,13 @@
   "homepage": "https://github.com/windyslime/ohmycodex",
   "repository": "https://github.com/windyslime/ohmycodex",
   "license": "MIT",
-  "keywords": ["codex", "vibe-coding", "mvp", "engineering", "skills"],
+  "keywords": [
+    "codex",
+    "vibe-coding",
+    "mvp",
+    "engineering",
+    "skills"
+  ],
   "skills": "./skills/",
   "interface": {
     "displayName": "OhMyCodex",
@@ -17,7 +23,9 @@
     "longDescription": "Plan, build, verify, review, and release AI-assisted products with persistent project context and practical engineering guardrails.",
     "developerName": "Zhengda Wu",
     "category": "Productivity",
-    "capabilities": ["Write"],
+    "capabilities": [
+      "Write"
+    ],
     "websiteURL": "https://github.com/windyslime/ohmycodex",
     "defaultPrompt": [
       "Use $omc-orchestrator to turn my app idea into a buildable MVP.",

@@ -5,6 +5,8 @@ description: Prepare a safe release for an AI-assisted project. Use when users a
 
 # Prepare the Release
 
+Read [the Language Policy](../omc-orchestrator/references/language-policy.md) before responding or writing OhMyCodex artifacts.
+
 Read the project profile, approved specification, verification evidence, review record, open debt, and current Git status. Confirm the intended version, release scope, target environment, owner, and rollback authority.
 
 Build a checklist covering acceptance evidence, automated checks, migration or configuration changes, compatibility, monitoring or logs, known risks, rollback steps, and user-visible release notes. Give a clear `go`, `no-go`, or `go with recorded risk` result with evidence.

@@ -5,6 +5,8 @@ description: Define a scoped MVP specification with acceptance criteria and non-
 
 # Specify the MVP
 
+Read [the Language Policy](../omc-orchestrator/references/language-policy.md) before responding or writing OhMyCodex artifacts.
+
 Read the discovery brief and project profile. Convert approved goals into one primary user flow, explicit in-scope behavior, non-goals, acceptance criteria, domain entities, state transitions, loading/error/empty states, and compatibility constraints.
 
 Resolve ambiguities that would change user-visible behavior. Keep the first version small: defer user systems, analytics, integrations, and abstractions unless they are essential to the primary flow.

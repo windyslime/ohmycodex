@@ -5,6 +5,8 @@ description: Record and prioritize intentional technical debt in an AI-assisted 
 
 # Record Technical Debt
 
+Read [the Language Policy](../omc-orchestrator/references/language-policy.md) before responding or writing OhMyCodex artifacts.
+
 Read the project profile and existing debt register. Record only deliberate trade-offs, not vague dissatisfaction. For each item capture location, current shortcut, reason accepted, consequence, risk level, owner, revisit trigger, and suggested next action.
 
 Prioritize debt by likelihood and cost of failure, not by aesthetic preference. Link debt to relevant specification, decision, incident, review, or release artifact. Do not convert debt tracking into an unbounded backlog.

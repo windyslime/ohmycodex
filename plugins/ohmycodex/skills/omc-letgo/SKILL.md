@@ -5,6 +5,8 @@ description: Let Codex autonomously choose a bounded one-turn workflow or native
 
 # Choose and Execute the Workflow
 
+Read [the Language Policy](../omc-orchestrator/references/language-policy.md) before responding or writing OhMyCodex artifacts.
+
 Read and follow `omc-doctor` and `omc-orchestrator`. Read [the Capability Contract](../omc-orchestrator/references/capability-contract.md), [the Loop Contract](../omc-orchestrator/references/loop-contract.md), and [the Workspace Contract](../omc-orchestrator/references/workspace-contract.md) completely.
 
 1. Infer the concrete objective, acceptance, constraints, current repository state, and available Codex controls from the request and evidence. Distinguish user facts from assumptions.

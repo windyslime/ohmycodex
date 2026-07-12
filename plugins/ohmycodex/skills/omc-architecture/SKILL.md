@@ -5,6 +5,8 @@ description: Design a change-safe architecture for an approved MVP specification
 
 # Design the Architecture
 
+Read [the Language Policy](../omc-orchestrator/references/language-policy.md) before responding or writing OhMyCodex artifacts.
+
 Inspect the existing repository before proposing changes. Read the approved MVP specification and preserve stable patterns unless they conflict with a concrete requirement.
 
 For a cross-module architecture question with independent repository and documentation unknowns, use `omc-team` to run Explorer and Librarian in parallel. Consolidate their evidence before making architectural decisions; do not delegate writing.

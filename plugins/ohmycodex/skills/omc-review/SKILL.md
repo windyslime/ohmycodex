@@ -5,6 +5,8 @@ description: Review AI-assisted changes against the active specification and eng
 
 # Review Against the Contract
 
+Read [the Language Policy](../omc-orchestrator/references/language-policy.md) before responding or writing OhMyCodex artifacts.
+
 Read the active specification, architecture decisions, implementation evidence, and the requested diff or files. Review for correctness, scope compliance, contract consistency, module responsibility, resilience, observability, security-sensitive handling, tests, and rollback risk.
 
 For a broad diff with independent code-path mapping and risk review, use `omc-team` to run Explorer and Reviewer read-only in parallel. The parent consolidates findings and never asks review workers to edit code.

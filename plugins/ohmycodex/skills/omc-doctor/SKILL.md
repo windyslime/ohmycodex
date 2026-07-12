@@ -5,6 +5,8 @@ description: Inspect active Codex capabilities and safe degradation routes witho
 
 # Inspect Capabilities
 
+Read [the Language Policy](../omc-orchestrator/references/language-policy.md) before reporting the snapshot.
+
 Read [the capability contract](../omc-orchestrator/references/capability-contract.md) before collecting evidence.
 
 1. Build Host Capability Input only from controls, tools, writable roots, and policy exposed in the current task. Assign a tool capability only when its exposed description or contract directly supports that capability; a generic MCP or REPL name is not evidence of browser, web, code-search, LSP, or AST support. Mark absent controls unavailable and never promote them from CLI configuration.

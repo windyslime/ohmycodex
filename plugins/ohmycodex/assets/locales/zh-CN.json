@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "locale": "zh-CN",
+  "manifest": {
+    "description": "面向 Codex 中 AI 辅助 MVP 的完整工程工作流。",
+    "displayName": "OhMyCodex",
+    "shortDescription": "面向 AI 构建 MVP 的工程工作流。",
+    "longDescription": "通过持久化项目上下文和实用工程护栏，规划、构建、验证、审查并发布 AI 辅助产品。",
+    "defaultPrompt": [
+      "使用 $omc-orchestrator 将我的应用想法转化为可构建的 MVP。",
+      "使用 $omc-review 审查这个由 AI 生成的代码库。",
+      "使用 $omc-release 为这个项目准备安全发布。"
+    ]
+  },
+  "skills": {
+    "omc-architecture": {
+      "display_name": "设计架构",
+      "short_description": "规划模块、契约与安全变更",
+      "default_prompt": "使用 $omc-architecture 设计这个已批准的 MVP。"
+    },
+    "omc-cn": {
+      "display_name": "OhMyCodex 中文",
+      "short_description": "将 OhMyCodex 元数据切换为简体中文",
+      "default_prompt": "使用 $omc-cn 将 OhMyCodex 切换为简体中文。"
+    },
+    "omc-debt": {
+      "display_name": "记录技术债务",
+      "short_description": "记录有意接受的工程权衡",
+      "default_prompt": "使用 $omc-debt 记录这项技术债务。"
+    },
+    "omc-debug": {
+      "display_name": "诊断缺陷",
+      "short_description": "在修改代码前定位根因",
+      "default_prompt": "使用 $omc-debug 诊断这个异常行为。"
+    },
+    "omc-discover": {
+      "display_name": "探索 MVP",
+      "short_description": "明确用户、结果与 MVP 范围",
+      "default_prompt": "使用 $omc-discover 澄清这个产品想法。"
+    },
+    "omc-doctor": {
+      "display_name": "OhMyCodex 环境诊断",
+      "short_description": "检查能力与安全降级路线",
+      "default_prompt": "使用 $omc-doctor 安全检查当前 Codex 环境。"
+    },
+    "omc-en": {
+      "display_name": "OhMyCodex 英文",
+      "short_description": "将 OhMyCodex 元数据恢复为英文",
+      "default_prompt": "使用 $omc-en 恢复 OhMyCodex 的英文元数据。"
+    },
+    "omc-implement": {
+      "display_name": "安全实现",
+      "short_description": "按验证里程碑构建已批准工作",
+      "default_prompt": "使用 $omc-implement 执行已批准的计划。"
+    },
+    "omc-init": {
+      "display_name": "初始化 OhMyCodex",
+      "short_description": "创建持久的项目工程上下文",
+      "default_prompt": "使用 $omc-init 初始化这个项目工作区。"
+    },
+    "omc-intentgate": {
+      "display_name": "OhMyCodex 意图门控",
+      "short_description": "按能力路由意图并安全续跑",
+      "default_prompt": "使用 $omc-intentgate 路由这个请求，并在需要时安全续跑。"
+    },
+    "omc-letgo": {
+      "display_name": "OhMyCodex 放手模式",
+      "short_description": "让 Codex 选择最安全有效的工作流",
+      "default_prompt": "使用 $omc-letgo 自主选择并执行最安全有效的工作流。"
+    },
+    "omc-loop": {
+      "display_name": "OhMyCodex 循环",
+      "short_description": "用原生 Codex Goal 继续已验证工作",
+      "default_prompt": "使用 $omc-loop 通过原生 Codex Goal 继续这个已验证目标。"
+    },
+    "omc-orchestrator": {
+      "display_name": "OhMyCodex 编排器",
+      "short_description": "为 AI 辅助 MVP 选择工程工作流",
+      "default_prompt": "使用 $omc-orchestrator 选择正确的工程工作流。"
+    },
+    "omc-qa": {
+      "display_name": "验证工作",
+      "short_description": "测试验收路径与回归风险",
+      "default_prompt": "使用 $omc-qa 验证这项实现。"
+    },
+    "omc-refactor": {
+      "display_name": "安全重构",
+      "short_description": "在不偏离行为的前提下改进代码",
+      "default_prompt": "使用 $omc-refactor 安全简化这段代码。"
+    },
+    "omc-release": {
+      "display_name": "准备发布",
+      "short_description": "基于证据作出发布或暂缓决定",
+      "default_prompt": "使用 $omc-release 评估发布准备情况。"
+    },
+    "omc-review": {
+      "display_name": "审查变更",
+      "short_description": "依据当前规格审查代码",
+      "default_prompt": "使用 $omc-review 审查这项变更。"
+    },
+    "omc-spec": {
+      "display_name": "定义 MVP 规格",
+      "short_description": "定义范围与验收标准",
+      "default_prompt": "使用 $omc-spec 编写范围明确的 MVP 规格。"
+    },
+    "omc-team": {
+      "display_name": "OhMyCodex 团队",
+      "short_description": "配置并运行原生子代理团队",
+      "default_prompt": "使用 $omc-team 安全委派这个复杂任务。"
+    }
+  }
+}

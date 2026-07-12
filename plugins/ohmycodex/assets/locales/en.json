@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "locale": "en",
+  "manifest": {
+    "description": "A complete engineering workflow for AI-assisted MVPs in Codex.",
+    "displayName": "OhMyCodex",
+    "shortDescription": "Engineering workflows for AI-built MVPs.",
+    "longDescription": "Plan, build, verify, review, and release AI-assisted products with persistent project context and practical engineering guardrails.",
+    "defaultPrompt": [
+      "Use $omc-orchestrator to turn my app idea into a buildable MVP.",
+      "Use $omc-review to audit this AI-generated codebase.",
+      "Use $omc-release to prepare this project for a safe release."
+    ]
+  },
+  "skills": {
+    "omc-architecture": {
+      "display_name": "Design Architecture",
+      "short_description": "Plan modules, contracts, and safe changes",
+      "default_prompt": "Use $omc-architecture to design this approved MVP."
+    },
+    "omc-cn": {
+      "display_name": "OhMyCodex Chinese",
+      "short_description": "Switch OhMyCodex metadata to Simplified Chinese",
+      "default_prompt": "Use $omc-cn to switch OhMyCodex to Simplified Chinese."
+    },
+    "omc-debt": {
+      "display_name": "Track Technical Debt",
+      "short_description": "Record intentional engineering trade-offs",
+      "default_prompt": "Use $omc-debt to record this technical debt."
+    },
+    "omc-debug": {
+      "display_name": "Diagnose a Bug",
+      "short_description": "Find root cause before changing code",
+      "default_prompt": "Use $omc-debug to diagnose this failing behavior."
+    },
+    "omc-discover": {
+      "display_name": "Discover the MVP",
+      "short_description": "Clarify users, outcomes, and MVP scope",
+      "default_prompt": "Use $omc-discover to clarify this product idea."
+    },
+    "omc-doctor": {
+      "display_name": "OhMyCodex Doctor",
+      "short_description": "Inspect capabilities and safe degradation routes",
+      "default_prompt": "Use $omc-doctor to inspect this Codex environment safely."
+    },
+    "omc-en": {
+      "display_name": "OhMyCodex English",
+      "short_description": "Restore OhMyCodex metadata to English",
+      "default_prompt": "Use $omc-en to restore OhMyCodex English metadata."
+    },
+    "omc-implement": {
+      "display_name": "Implement Safely",
+      "short_description": "Build approved work in verified milestones",
+      "default_prompt": "Use $omc-implement to execute the approved plan."
+    },
+    "omc-init": {
+      "display_name": "Initialize OhMyCodex",
+      "short_description": "Create durable project engineering context",
+      "default_prompt": "Use $omc-init to initialize this project workspace."
+    },
+    "omc-intentgate": {
+      "display_name": "OhMyCodex IntentGate",
+      "short_description": "Route intent through capabilities and safe continuation",
+      "default_prompt": "Use $omc-intentgate to route this request and start safe continuation when needed."
+    },
+    "omc-letgo": {
+      "display_name": "OhMyCodex Letgo",
+      "short_description": "Let Codex choose the safest useful workflow",
+      "default_prompt": "Use $omc-letgo to choose and execute the safest useful workflow autonomously."
+    },
+    "omc-loop": {
+      "display_name": "OhMyCodex Loop",
+      "short_description": "Continue validated work with native Codex Goals",
+      "default_prompt": "Use $omc-loop to continue this validated objective with native Codex Goals."
+    },
+    "omc-orchestrator": {
+      "display_name": "OhMyCodex Orchestrator",
+      "short_description": "Route an AI-assisted MVP workflow",
+      "default_prompt": "Use $omc-orchestrator to choose the right engineering workflow."
+    },
+    "omc-qa": {
+      "display_name": "Verify the Work",
+      "short_description": "Test acceptance paths and regressions",
+      "default_prompt": "Use $omc-qa to verify this implementation."
+    },
+    "omc-refactor": {
+      "display_name": "Refactor Safely",
+      "short_description": "Improve code without behavior drift",
+      "default_prompt": "Use $omc-refactor to simplify this code safely."
+    },
+    "omc-release": {
+      "display_name": "Prepare a Release",
+      "short_description": "Decide go or no-go with evidence",
+      "default_prompt": "Use $omc-release to assess release readiness."
+    },
+    "omc-review": {
+      "display_name": "Review the Change",
+      "short_description": "Audit code against the active specification",
+      "default_prompt": "Use $omc-review to inspect this change."
+    },
+    "omc-spec": {
+      "display_name": "Specify the MVP",
+      "short_description": "Define scope and acceptance criteria",
+      "default_prompt": "Use $omc-spec to write a scoped MVP specification."
+    },
+    "omc-team": {
+      "display_name": "OhMyCodex Team",
+      "short_description": "Configure and run native subagent teams",
+      "default_prompt": "Use $omc-team to delegate this complex task safely."
+    }
+  }
+}

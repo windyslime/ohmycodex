@@ -5,6 +5,8 @@ description: Inspect intent and active Codex capabilities, route to the right Oh
 
 # Gate Intent Before Continuation
 
+Read [the Language Policy](../omc-orchestrator/references/language-policy.md) before responding or writing OhMyCodex artifacts.
+
 Read and follow `omc-doctor`, then read and follow `omc-orchestrator`. Also read [the Capability Contract](../omc-orchestrator/references/capability-contract.md), [the Loop Contract](../omc-orchestrator/references/loop-contract.md), and [the Workspace Contract](../omc-orchestrator/references/workspace-contract.md) completely.
 
 1. Normalize the user's objective, requested outcome, constraints, repository evidence, and active host controls. Return the selected lifecycle route and why it fits.

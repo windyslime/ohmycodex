@@ -5,6 +5,8 @@ description: Turn an app idea into an evidence-based MVP discovery brief. Use wh
 
 # Discover the MVP
 
+Read [the Language Policy](../omc-orchestrator/references/language-policy.md) before responding or writing OhMyCodex artifacts.
+
 Read `.ohmycodex/project.md` when present. Ask only the smallest set of questions needed to establish user, problem, desired outcome, success signal, constraints, and exclusions. Separate facts from assumptions.
 
 Propose a thin vertical slice rather than a feature inventory. Identify the primary user flow, the riskiest assumption, and the smallest experiment or acceptance scenario that can validate value.

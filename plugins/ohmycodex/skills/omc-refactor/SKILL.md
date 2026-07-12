@@ -5,6 +5,8 @@ description: Refactor AI-generated code without changing intended behavior. Use 
 
 # Refactor in Small Steps
 
+Read [the Language Policy](../omc-orchestrator/references/language-policy.md) before responding or writing OhMyCodex artifacts.
+
 Inspect existing behavior, tests, public contracts, and Git status. State the behavior invariant and the concrete design problem before proposing a refactor. Reject cosmetic churn and premature abstractions.
 
 Choose the smallest independently verifiable step: extract a focused unit, centralize real duplication, clarify a boundary, or remove an obsolete path. Preserve public APIs unless the user explicitly approves a compatibility change.

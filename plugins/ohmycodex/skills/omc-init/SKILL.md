@@ -5,6 +5,8 @@ description: Initialize `.ohmycodex` project state for an AI-assisted MVP. Use w
 
 # Initialize OhMyCodex
 
+Read [the Language Policy](../omc-orchestrator/references/language-policy.md) before responding or writing OhMyCodex artifacts.
+
 Inspect the repository, existing guidance, package manifests, CI configuration, and Git status before writing. Create the workspace layout defined in `../omc-orchestrator/references/workspace-contract.md` without overwriting existing artifacts.
 
 Populate `project.md` from repository evidence. Include only commands that exist in configuration or have been verified. Mark unknowns as questions; do not guess the stack, deployment system, or test command.

@@ -5,6 +5,8 @@ description: Continue validated work with native Codex Goals, evidence-backed co
 
 # Continue With Native Controls
 
+Read [the Language Policy](../omc-orchestrator/references/language-policy.md) before responding or writing OhMyCodex artifacts.
+
 Read [the Loop Contract](../omc-orchestrator/references/loop-contract.md), [the Capability Contract](../omc-orchestrator/references/capability-contract.md), and [the Workspace Contract](../omc-orchestrator/references/workspace-contract.md) completely before acting. Locate the plugin-owned `scripts/loop_ledger.py`; use it only as the state adapter defined by the Loop Contract.
 
 1. Build a current Capability Snapshot from host-exposed controls. Inspect the current native Goal before creating a ledger or Goal. A configured CLI feature is not proof that Goal or Scheduled controls are callable in this task.

@@ -5,6 +5,8 @@ description: Route AI-assisted MVP work through the OhMyCodex engineering workfl
 
 # OhMyCodex Orchestrator
 
+Read [the Language Policy](references/language-policy.md) before responding or writing OhMyCodex artifacts.
+
 Inspect `.ohmycodex/` and the repository before choosing a workflow. If the workspace is absent and writes are available, invoke the initialization flow before routing. If writes are unavailable, state that the session is conversation-only.
 
 Classify the request into one primary stage:

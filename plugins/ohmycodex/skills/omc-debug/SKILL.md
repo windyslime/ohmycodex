@@ -5,6 +5,8 @@ description: Diagnose bugs and regressions with evidence before changing code. U
 
 # Diagnose Before Fixing
 
+Read [the Language Policy](../omc-orchestrator/references/language-policy.md) before responding or writing OhMyCodex artifacts.
+
 Read the project profile, relevant specification, recent changes, logs, error output, and reproducible steps. Establish the observed behavior, expected behavior, affected scope, and smallest reliable reproduction.
 
 For intermittent or multi-module failures, use `omc-team` to parallelize Explorer and QA evidence gathering. Consolidate competing hypotheses before assigning a debugger or implementer; never run parallel repair agents.

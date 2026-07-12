@@ -5,6 +5,8 @@ description: Verify an AI-assisted MVP with focused tests and acceptance evidenc
 
 # Verify the Work
 
+Read [the Language Policy](../omc-orchestrator/references/language-policy.md) before responding or writing OhMyCodex artifacts.
+
 Read the MVP specification, architecture plan, and implementation record. Derive verification from acceptance criteria rather than only from changed lines.
 
 For broad independent test-gap analysis, use `omc-team` to delegate read-only QA and Explorer work. Wait for both results before selecting checks; retain one parent-owned verification record.
