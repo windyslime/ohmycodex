@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -496,6 +497,47 @@ class CapabilityResolverTests(unittest.TestCase):
         options = snapshot["routes"]["structural_rewrite"]
         self.assertNotIn("local:rg", [option["id"] for option in options])
         self.assertFalse(any(option["available"] for option in options))
+
+    @unittest.skipUnless(shutil.which("git"), "git is required for fingerprint coverage")
+    def test_same_dirty_path_with_different_contents_changes_fingerprint(self) -> None:
+        subprocess.run(
+            ["git", "init", "-q"],
+            cwd=self.repository,
+            check=True,
+        )
+        tracked = self.repository / "tracked.txt"
+        tracked.write_text("baseline\n", encoding="utf-8")
+        subprocess.run(["git", "add", "tracked.txt"], cwd=self.repository, check=True)
+        subprocess.run(
+            [
+                "git",
+                "-c",
+                "user.name=OMC Test",
+                "-c",
+                "user.email=omc@example.invalid",
+                "commit",
+                "-qm",
+                "baseline",
+            ],
+            cwd=self.repository,
+            check=True,
+        )
+
+        tracked.write_text("first dirty value\n", encoding="utf-8")
+        first = resolve_capabilities(
+            self.repository,
+            host_input(self.repository),
+            which=lambda name: shutil.which("git") if name == "git" else None,
+        ).as_dict()["workspace"]["git"]["worktree_fingerprint"]
+
+        tracked.write_text("second dirty value\n", encoding="utf-8")
+        second = resolve_capabilities(
+            self.repository,
+            host_input(self.repository),
+            which=lambda name: shutil.which("git") if name == "git" else None,
+        ).as_dict()["workspace"]["git"]["worktree_fingerprint"]
+
+        self.assertNotEqual(first, second)
 
 
 if __name__ == "__main__":

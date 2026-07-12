@@ -7,6 +7,7 @@ import argparse
 import copy
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -237,6 +238,55 @@ def _reduce_mcp_probe(result: ProbeResult) -> tuple[list[dict[str, object]], lis
     return reduced, warnings
 
 
+def _changed_paths(status: str) -> list[str]:
+    tokens = status.split("\0")
+    paths: list[str] = []
+    index = 0
+    while index < len(tokens):
+        entry = tokens[index]
+        index += 1
+        if not entry:
+            continue
+        if len(entry) < 4 or entry[2] != " ":
+            continue
+        code = entry[:2]
+        paths.append(entry[3:])
+        if "R" in code or "C" in code:
+            if index < len(tokens) and tokens[index]:
+                paths.append(tokens[index])
+            index += 1
+    return paths
+
+
+def _worktree_content_identity(repository: Path, status: str) -> str:
+    digest = hashlib.sha256()
+    for relative in _changed_paths(status):
+        relative_path = Path(relative)
+        digest.update(relative.encode("utf-8", errors="replace"))
+        digest.update(b"\0")
+        if relative_path.is_absolute() or ".." in relative_path.parts:
+            digest.update(b"unsafe-path\0")
+            continue
+        path = repository / relative_path
+        try:
+            if path.is_symlink():
+                digest.update(b"symlink\0")
+                digest.update(os.readlink(path).encode("utf-8", errors="replace"))
+            elif path.is_file():
+                digest.update(b"file\0")
+                with path.open("rb") as handle:
+                    while chunk := handle.read(1024 * 1024):
+                        digest.update(chunk)
+            elif path.exists():
+                digest.update(b"other\0")
+            else:
+                digest.update(b"missing\0")
+        except OSError:
+            digest.update(b"unavailable\0")
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
 def _probe_git(
     repository: Path,
     runner: ProbeRunner,
@@ -274,8 +324,11 @@ def _probe_git(
     head = results[0].stdout.strip()
     status = results[1].stdout
     cached = results[2].stdout
+    content_identity = _worktree_content_identity(repository, status)
     digest = hashlib.sha256(
-        "\0".join((head, status, cached)).encode("utf-8", errors="replace")
+        "\0".join((head, status, cached, content_identity)).encode(
+            "utf-8", errors="replace"
+        )
     ).hexdigest()
     return (
         {
