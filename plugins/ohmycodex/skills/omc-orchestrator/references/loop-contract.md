@@ -25,6 +25,8 @@ For a new run, write `preparing` first, create a Goal whose objective names the 
 
 Before creating anything, inspect the current Goal. Resume a matching run ID. Do not replace a different unfinished Goal, and never adopt a Goal that has no matching ledger. An active ledger without a Goal is orphaned; reconcile it and create a replacement Goal only when the invocation targets the same objective. If Goal support is unavailable, perform at most the current turn and report that automatic continuation is unavailable; do not emulate it with a shell loop, Stop Hook, daemon, or custom scheduler.
 
+If the project workspace is not writable, a native Goal may still continue, but durable audit and custom threshold recovery are reduced. Keep that degradation explicit instead of claiming a durable in-project ledger.
+
 Native Goal controls own pause, resume, edit, clear, complete, and block. The ledger may record a user request or observed workflow state, but it must never claim the corresponding native transition until the host confirms it. Native Goal state remains authoritative.
 
 ## Python interface

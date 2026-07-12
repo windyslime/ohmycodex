@@ -28,3 +28,5 @@ Return the selected stage, the evidence used, the artifact to read or create, an
 Route to Team only when independent read-heavy work can improve the parent decision. Keep a single writer for implementation, configuration, dependency, Git, and release changes.
 
 Read [the workspace contract](references/workspace-contract.md) before creating or updating project artifacts.
+
+The explicit continuation entries wrap this router: `omc-intentgate` inspects capabilities and requires acceptance before selecting a route, `omc-letgo` chooses between a bounded current turn and continuation, and `omc-loop` adapts a validated contract to native Goals. When already called from one of those entries, return the selected lifecycle route without invoking the entry again.

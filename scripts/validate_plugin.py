@@ -31,7 +31,12 @@ IMPLICIT_SKILLS = {
     "omc-debt",
     "omc-team",
 }
-EXPLICIT_SKILLS = {"omc-doctor"}
+EXPLICIT_SKILLS = {
+    "omc-doctor",
+    "omc-loop",
+    "omc-intentgate",
+    "omc-letgo",
+}
 REQUIRED_SKILLS = IMPLICIT_SKILLS | EXPLICIT_SKILLS
 TEAM_AGENTS = PLUGIN / "skills" / "omc-team" / "assets" / "agents"
 TEAM_POLICY = {

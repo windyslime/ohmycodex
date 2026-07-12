@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "OhMyCodex Letgo",
+    "short_description": "Let Codex choose the safest useful workflow",
+    "default_prompt": "Use $omc-letgo to choose and execute the safest useful workflow autonomously."
+  },
+  "policy": {
+    "allow_implicit_invocation": false
+  }
+}
