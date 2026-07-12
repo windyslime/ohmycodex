@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -8,24 +9,60 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PLUGIN = ROOT / "plugins" / "ohmycodex"
 SKILLS = PLUGIN / "skills"
-RUNTIME_DOCS = (
-    ROOT / "README.md",
-    ROOT / "README.zh-CN.md",
-    ROOT / "docs" / "compatibility.md",
-    ROOT / "docs" / "evaluation-matrix.md",
-    ROOT / "docs" / "skill-catalog.md",
-    ROOT / "docs" / "team-mode.md",
-    ROOT / "docs" / "releases" / "v0.3.0.md",
-    ROOT / "CONTRIBUTING.md",
+PUBLIC_DOC_PAIRS = (
+    (Path("README.md"), Path("README.zh-CN.md")),
+    (Path("CONTRIBUTING.md"), Path("CONTRIBUTING.zh-CN.md")),
+    (Path("SECURITY.md"), Path("SECURITY.zh-CN.md")),
+    (Path("CODE_OF_CONDUCT.md"), Path("CODE_OF_CONDUCT.zh-CN.md")),
+    (Path("docs/compatibility.md"), Path("docs/compatibility.zh-CN.md")),
+    (Path("docs/evaluation-matrix.md"), Path("docs/evaluation-matrix.zh-CN.md")),
+    (Path("docs/skill-catalog.md"), Path("docs/skill-catalog.zh-CN.md")),
+    (Path("docs/team-mode.md"), Path("docs/team-mode.zh-CN.md")),
+    (Path("docs/releases/v0.3.0.md"), Path("docs/releases/v0.3.0.zh-CN.md")),
+)
+RUNTIME_DOCS = tuple(
+    ROOT / relative_path
+    for pair in PUBLIC_DOC_PAIRS
+    for relative_path in pair
 )
 
 
 class DocumentationContractTests(unittest.TestCase):
+    def test_public_docs_have_chinese_pairs_and_bidirectional_switches(self) -> None:
+        for english_relative, chinese_relative in PUBLIC_DOC_PAIRS:
+            english = ROOT / english_relative
+            chinese = ROOT / chinese_relative
+            with self.subTest(english=english_relative):
+                self.assertTrue(english.is_file())
+                self.assertTrue(chinese.is_file())
+                english_target = chinese.relative_to(english.parent).as_posix()
+                chinese_target = english.relative_to(chinese.parent).as_posix()
+                self.assertIn(
+                    f"English | [简体中文]({english_target})",
+                    english.read_text(encoding="utf-8").splitlines()[:3],
+                )
+                self.assertIn(
+                    f"[English]({chinese_target}) | 简体中文",
+                    chinese.read_text(encoding="utf-8").splitlines()[:3],
+                )
+
+    def test_public_doc_relative_links_resolve(self) -> None:
+        for pair in PUBLIC_DOC_PAIRS:
+            for relative_path in pair:
+                document = ROOT / relative_path
+                text = document.read_text(encoding="utf-8")
+                for target in re.findall(r"(?<!!)\[[^]]+\]\(([^)]+)\)", text):
+                    if target.startswith(("https://", "http://", "mailto:", "#")):
+                        continue
+                    path = document.parent / target.partition("#")[0]
+                    with self.subTest(document=relative_path, target=target):
+                        self.assertTrue(path.is_file())
+
     def test_runtime_docs_use_only_the_canonical_omc_namespace(self) -> None:
         for path in RUNTIME_DOCS:
             with self.subTest(path=path.relative_to(ROOT)):
                 self.assertTrue(path.is_file())
-                if path.name != "v0.3.0.md":
+                if path.parent.name != "releases":
                     self.assertNotIn("ohmycodex-", path.read_text(encoding="utf-8"))
 
     def test_catalog_lists_all_nineteen_skills(self) -> None:

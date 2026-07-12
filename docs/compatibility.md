@@ -1,5 +1,7 @@
 # Compatibility
 
+English | [简体中文](compatibility.zh-CN.md)
+
 OhMyCodex v0.3 is a skills-only plugin. Active host controls are authoritative; local CLI configuration cannot manufacture a capability that the current task does not expose.
 
 | Surface | Expected behavior |

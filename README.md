@@ -1,5 +1,8 @@
 # OhMyCodex
-inspired by [oh-my-opencode](https://github.com/code-yeongyu/oh-my-openagent)
+
+English | [简体中文](README.zh-CN.md)
+
+Inspired by [oh-my-opencode](https://github.com/code-yeongyu/oh-my-openagent).
 
 OhMyCodex is a skills-only Codex plugin for building AI-assisted MVPs with traceable specifications, decisions, implementation evidence, review, and release records. It reuses native Codex Goals, Scheduled tasks, subagents, permissions, MCP controls, and project tooling instead of adding another agent runtime.
 

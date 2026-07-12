@@ -1,5 +1,7 @@
 # Evaluation matrix
 
+English | [简体中文](evaluation-matrix.zh-CN.md)
+
 Run these scenarios on supported surfaces without simulating unavailable host controls.
 
 | Type | Scenario | Expected behavior |

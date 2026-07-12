@@ -1,5 +1,7 @@
 # Team mode
 
+English | [简体中文](team-mode.zh-CN.md)
+
 `$omc-team` configures native Codex subagents inside the existing OhMyCodex plugin. It adds no second runtime.
 
 The bundled installer copies only missing templates into `.codex/agents/` and adds safe defaults only when the project has no existing `[agents]` section. It never overwrites project-owned agent files or an existing agent configuration.

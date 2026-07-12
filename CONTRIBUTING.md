@@ -1,5 +1,7 @@
 # Contributing
 
+English | [简体中文](CONTRIBUTING.zh-CN.md)
+
 Keep OhMyCodex focused on repeatable engineering workflows that reuse native Codex controls. Describe the triggering prompt, expected behavior or artifact, and failure mode prevented. Preserve explicit-only policy for continuation, Doctor, and locale entries; keep Skill frontmatter concise and dependency-free.
 
 Run the complete validation set before review:

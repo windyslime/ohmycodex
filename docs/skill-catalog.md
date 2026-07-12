@@ -1,5 +1,7 @@
 # Skill catalog
 
+English | [简体中文](skill-catalog.zh-CN.md)
+
 Portable invocation uses `$omc-*` or `/skills`. Every Skill follows the shared language policy; tool-using workflows also follow the capability contract.
 
 | Skill | Primary responsibility |
