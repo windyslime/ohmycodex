@@ -1,30 +1,42 @@
 # OhMyCodex
 
-OhMyCodex 是一个只包含 skills 的 Codex 插件，面向用 AI 快速构建 MVP、同时希望项目保持可维护和可验证的开发者。
+OhMyCodex 是一个只包含 Skills 的 Codex 插件，用原生 Codex Goal、Scheduled、子代理、权限、MCP 控制和项目工具，把 AI 辅助 MVP 的规格、决策、实现、验证、审查和发布串成可追溯工作流。
 
-它不提供新的 Agent runtime，不包含 MCP、hooks、遥测、浏览器自动化或强制付费服务。它做的是将产品想法、工程决策、实现、测试、审查和发布串成一套可追溯的工作流。
+它不提供 MCP Server、App、Hook、守护进程、遥测、自定义模型供应商或独立调度器。
 
 ## 安装
 
-首个 GitHub Release 发布后，可使用：
-
 ```bash
-codex plugin marketplace add windyslime/ohmycodex --ref v0.2.0 --sparse .agents/plugins
+codex plugin marketplace add windyslime/ohmycodex --ref v0.3.0 --sparse .agents/plugins
 codex plugin add ohmycodex@ohmycodex
 ```
 
-安装后请新建一个聊天、任务或 Codex session。推荐从下面的入口开始：
+安装后新建任务。可移植的调用方式是 `$omc-*` 或 `/skills`：
 
 ```text
-Use $ohmycodex-orchestrator to help me turn this idea into a production-ready MVP.
+使用 $omc-orchestrator 将我的应用想法转化为可构建的 MVP。
 ```
 
-首次使用时会在目标项目创建 `.ohmycodex/`，保存项目画像、规格、决策、计划、验证证据、发布记录和技术债。它不属于应用运行时代码。
+部分 Codex 客户端可能把 `/omc-*` 文本解析为 Skill mention；这只是客户端便利功能，OhMyCodex 不注册额外的斜杠命令运行时。
 
-更多信息请阅读英文 [README](README.md)、[skill 目录](docs/skill-catalog.md) 与 [兼容性说明](docs/compatibility.md)。
+## v0.3 破坏性迁移
 
-## Team 子 agent 模式
+v0.3 把所有公开 Skill 硬改名为 `omc-*`，不提供兼容别名。升级前请更新保存的提示词和文档。迁移表见 [v0.3.0 发布说明](docs/releases/v0.3.0.md)。
 
-复杂任务可使用 `$ohmycodex-team`。在本地 Codex Desktop、CLI 或 IDE 项目中，让它启用 Team mode；它只会安装缺失的 `.codex/agents/omc-*.toml`，不会覆盖项目已有配置。
+## 自动续跑
 
-Explorer、Librarian、QA 使用 Luna；Implementer、Debugger 使用 Terra；Architect、Reviewer 使用 Sol；模型不可用时才显式改派 GPT-5.5 fallback。只读角色可以并发，实际代码始终只有一个写入角色。详情见 [Team mode](docs/team-mode.md)。
+- `$omc-intentgate` 检查能力并要求先有验收契约；仅在新循环开始前询问一次无进展阈值。
+- `$omc-loop` 使用持久化原生 Goal 续跑。阈值默认和最小值都是 `3`，没有最大值，统计连续出现同一证据阻塞的 Goal 轮次；OhMyCodex 不另设总循环次数上限。
+- `$omc-letgo` 让 Codex 自主决定当前轮完成还是进入续跑，并自行记录假设和选择阈值。原生权限、信任、MCP、推送、部署、标签和公开发布确认仍然有效。
+
+Scheduled 心跳只用于外部等待，并在终态前删除。当前环境没有 Goal 能力时，只执行当前有用的一轮，不使用 shell 循环或 Hook 模拟。
+
+## 语言切换
+
+默认语言是英文。运行 `$omc-cn` 切换简体中文，运行 `$omc-en` 恢复英文。切换成功后需重启 Codex 或新建任务，让描述重新加载。它不会翻译代码、命令、路径、原始日志、其他插件或 Codex 其余界面。
+
+## Team 模式
+
+复杂任务可使用 `$omc-team`。它只安装缺失的 `.codex/agents/omc-*.toml`，保留项目已有配置；只读角色可以并发，实际代码保持单写入者。详情见 [Team mode](docs/team-mode.md)。
+
+完整入口见 [Skill 目录](docs/skill-catalog.md)，平台差异见 [兼容性说明](docs/compatibility.md)。

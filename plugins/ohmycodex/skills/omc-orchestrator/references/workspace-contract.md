@@ -18,11 +18,16 @@ Create the following files only when the host grants write access. Never overwri
     refactor.md
     review.md
     team-runs/
+    loop-runs/
+  runtime/
+    loops/
   releases/
     checklist.md
 ```
 
-Every artifact starts with `Status: draft | approved | superseded`, `Owner:`, and `Updated:`. Use concise Markdown. Record a source link or file path for every repository-specific claim.
+Every human-authored Markdown artifact starts with `Status: draft | approved | superseded`, `Owner:`, and `Updated:`. Use concise Markdown. Record a source link or file path for every repository-specific claim. Machine-owned JSON files under `runtime/loops/` are exempt from Markdown headers and follow the Loop Contract schema instead.
+
+Loop audit Markdown lives under `plans/loop-runs/`; machine state lives under `runtime/loops/`.
 
 ## Project profile
 

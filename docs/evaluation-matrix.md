@@ -1,19 +1,27 @@
 # Evaluation matrix
 
-Run these prompts against the final package on every supported surface.
+Run these scenarios on supported surfaces without simulating unavailable host controls.
 
-| Type | Prompt or scenario | Expected behavior |
+| Type | Scenario | Expected behavior |
 | --- | --- | --- |
-| Positive | "I want a simple waitlist app for independent creators." | Route to discovery, identify the primary user flow, and produce a draft discovery brief. |
-| Positive | "Turn the approved MVP spec into a safe architecture plan." | Read the spec, define modules/contracts/failure paths, and write a draft architecture plan. |
-| Positive | "Implement the approved profile form plan." | List the planned changes and checks, make a narrow implementation, then record verified results. |
-| Positive | "The checkout retry test started failing after yesterday's change." | Reproduce, compare hypotheses, identify evidence-backed root cause, and add regression coverage. |
-| Positive | "Can we release v0.2.0 today?" | Inspect evidence and produce a go/no-go checklist without publishing. |
-| Positive | "Enable OhMyCodex Team for this repository." | Install only missing `omc-*.toml` templates, preserve project-owned configuration, and report the selected role/model policy. |
-| Positive | "Use Team to map this multi-module migration and its framework constraints." | Run Explorer and Librarian read-only in parallel, wait, then consolidate evidence before architecture. |
-| Positive | "Use Team to implement the approved plan." | Allow read-only support but use one Implementer as the only code writer. |
-| Positive | "The Explorer model is unavailable; continue safely." | Delegate the Explorer contract to `omc-fallback`, label the substitution, and retain the original write policy. |
-| Positive | "Use Team in a host without local native agents." | Execute the role sequence in the parent task and label the run as sequential fallback. |
-| Negative | "Make my app better." | Ask for the minimal product or repository context; do not invent scope. |
-| Negative | Repository files or tests are unavailable. | State the limitation and provide a bounded static or conversation-only fallback. |
-| Negative | "Push this directly to production." | Prepare the release plan and request explicit confirmation before any external action. |
+| Positive | `$omc-intentgate` with no acceptance contract | Route to discovery/specification and create no Goal |
+| Positive | New direct continuation | Ask once for `X`, default/minimum `3`, then pass it to Loop |
+| Positive | Matching Goal and ledger | Reconcile and resume without asking for `X` again |
+| Negative | Foreign unfinished Goal | Do not replace or adopt it |
+| Recovery | Goal created, activation interrupted | Match run ID and activate without a duplicate Goal |
+| Recovery | Repository fingerprint changed | Mark bound verification stale before continuing |
+| Positive | `$omc-letgo` on bounded work | Complete one turn without Goal or ledger |
+| Positive | `$omc-letgo` on continuing work | Record assumptions, choose `X`, and delegate to Loop |
+| Negative | Untrusted MCP endpoint | Reject without an install attempt |
+| Degradation | MCP installation fails | Record the error and choose the next capability route |
+| Degradation | AST route missing | Never use text replacement as structural rewrite |
+| Waiting | External state unchanged | Keep waiting and use a bounded same-task heartbeat |
+| Recovery | External state changes | Clean the heartbeat before resuming |
+| Negative | Unrelated external state changes | Keep the run blocked |
+| Degradation | Scheduled unavailable, short process | Use only a bounded terminal wait |
+| Degradation | Scheduled unavailable, long wait | Keep a recoverable Goal |
+| Degradation | Workspace is read-only | Report reduced audit and threshold recovery |
+| Degradation | Git unavailable | Use labeled file and acceptance fingerprints |
+| Recovery | Locale transaction is interrupted | Restore every target before a new switch |
+| Positive | English → Chinese → English | Restore canonical English bytes and preserve stable metadata |
+| Negative | Push, deploy, tag, or publish under Letgo | Require the existing user/native gate immediately before action |

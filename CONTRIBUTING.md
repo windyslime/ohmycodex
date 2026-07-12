@@ -1,14 +1,16 @@
 # Contributing
 
-Keep OhMyCodex focused on repeatable engineering workflows for AI-assisted products.
+Keep OhMyCodex focused on repeatable engineering workflows that reuse native Codex controls. Describe the triggering prompt, expected behavior or artifact, and failure mode prevented. Preserve explicit-only policy for continuation, Doctor, and locale entries; keep Skill frontmatter concise and dependency-free.
 
-Before opening a pull request, describe the user prompt that should trigger the change, the expected artifact or behavior, and the failure mode it prevents. Keep skill descriptions concise, use only `name` and `description` in `SKILL.md` frontmatter, and avoid adding a dependency unless a workflow cannot be reliable without it.
-
-Run both validators before requesting review:
+Run the complete validation set before review:
 
 ```bash
+python3 -m unittest discover -s tests -v
 python3 scripts/validate_plugin.py
 python3 /Users/jerrywu/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py plugins/ohmycodex
+for skill in plugins/ohmycodex/skills/omc-*; do
+  python3 /Users/jerrywu/.codex/skills/.system/skill-creator/scripts/quick_validate.py "$skill" || exit 1
+done
 ```
 
-Do not add MCP servers, hooks, telemetry, credentials, browser-only instructions, or surface-specific behavior without a separately approved proposal. Preserve the plugin's host-neutral fallback: when a capability is unavailable, say so and continue with the safest useful alternative.
+Test transaction failure and degradation paths, not only success. Leave checked-in metadata materialized in English. Do not add a custom agent runtime, MCP server, App, Hook, daemon, telemetry, credentials, or direct Codex configuration editing without a separately approved design.

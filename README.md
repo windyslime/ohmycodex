@@ -1,57 +1,62 @@
 # OhMyCodex
 
-OhMyCodex is a skills-only Codex plugin for people building AI-assisted MVPs. It turns a vague product idea into a traceable engineering workflow: discover, scope, design, build, verify, review, release, and record technical debt.
+OhMyCodex is a skills-only Codex plugin for building AI-assisted MVPs with traceable specifications, decisions, implementation evidence, review, and release records. It reuses native Codex Goals, Scheduled tasks, subagents, permissions, MCP controls, and project tooling instead of adding another agent runtime.
 
-It is intentionally not an agent runtime. It ships no MCP server, hooks, telemetry, browser automation, or required paid service.
+It ships no MCP server, app, Hook, daemon, telemetry, custom model provider, or independent scheduler.
 
 ## Install
 
-After the first GitHub release is published, add the repository marketplace and install the plugin:
-
 ```bash
-codex plugin marketplace add windyslime/ohmycodex --ref v0.2.0 --sparse .agents/plugins
+codex plugin marketplace add windyslime/ohmycodex --ref v0.3.0 --sparse .agents/plugins
 codex plugin add ohmycodex@ohmycodex
 ```
 
-Start a new chat, task, or Codex session after installation. In CLI or the IDE extension, invoke a workflow explicitly with `$ohmycodex-orchestrator`, or describe a matching task and let Codex select a skill.
-
-## Start here
+Start a new task after installation. Portable invocation uses `$omc-*` or `/skills`:
 
 ```text
-Use $ohmycodex-orchestrator to help me turn this idea into a production-ready MVP.
+Use $omc-orchestrator to turn my app idea into a buildable MVP.
 ```
 
-On first use, the plugin creates `.ohmycodex/` in the target project. It keeps the project profile, approved specifications, decisions, plans, verification evidence, release records, and technical debt. This directory is local project state, not application runtime code.
+Some Codex clients may resolve `/omc-*` text to a Skill mention as a UI convenience. OhMyCodex does not register a separate slash-command runtime.
 
-## Skills
+## Breaking v0.3 migration
 
-| Stage | Skill |
+v0.3 hard-renames every public Skill to the `omc-*` namespace with no compatibility aliases. Update saved prompts and documentation before upgrading. See [the v0.3.0 release notes](docs/releases/v0.3.0.md).
+
+## Continuation entries
+
+- `$omc-intentgate` inspects capabilities, requires an acceptance contract, and asks once for the no-progress threshold before a new run.
+- `$omc-loop` continues validated work through a persisted native Goal. The threshold defaults to `3`, must be at least `3`, has no maximum, and counts consecutive materially unchanged blocker turns. OhMyCodex adds no total iteration limit.
+- `$omc-letgo` lets Codex choose between a bounded current turn and Goal-backed continuation. It records assumptions and chooses the threshold, while native trust, sandbox, MCP, release, push, deploy, tag, and publication gates remain authoritative.
+
+Scheduled heartbeat is used only for external waits and is deleted before terminal outcomes. Without Goal support, OhMyCodex performs at most the current useful turn; it never emulates continuation with a shell loop or Hook.
+
+## Language
+
+English is the checked-in default. Run `$omc-cn` for Simplified Chinese metadata and OhMyCodex output, or `$omc-en` to restore English. After either switch, restart Codex or start a new task so descriptions reload. The setting does not translate code, commands, paths, raw logs, other plugins, or the rest of the Codex UI.
+
+## Skill groups
+
+| Purpose | Skills |
 | --- | --- |
-| Route work | `ohmycodex-orchestrator` |
-| Set up project state | `ohmycodex-init` |
-| Discover and scope | `ohmycodex-discover`, `ohmycodex-spec` |
-| Design | `ohmycodex-architecture` |
-| Build and verify | `ohmycodex-implement`, `ohmycodex-qa` |
-| Improve and inspect | `ohmycodex-debug`, `ohmycodex-refactor`, `ohmycodex-review` |
-| Ship and track trade-offs | `ohmycodex-release`, `ohmycodex-debt` |
+| Route and inspect | `omc-orchestrator`, `omc-doctor`, `omc-intentgate`, `omc-letgo` |
+| Continue | `omc-loop` |
+| Project lifecycle | `omc-init`, `omc-discover`, `omc-spec`, `omc-architecture`, `omc-implement`, `omc-qa`, `omc-debug`, `omc-refactor`, `omc-review`, `omc-release`, `omc-debt` |
+| Delegate | `omc-team` |
+| Language | `omc-cn`, `omc-en` |
 
-See [the skill catalog](docs/skill-catalog.md) and [compatibility notes](docs/compatibility.md).
+See [the complete Skill catalog](docs/skill-catalog.md), [compatibility notes](docs/compatibility.md), and [Team mode](docs/team-mode.md).
 
-## Team mode
+## Project state
 
-Use `$ohmycodex-team` for complex work that benefits from independent investigation. In local Codex Desktop, CLI, and IDE projects, ask it to enable Team mode; it installs missing project-local `omc-*` custom agent templates without replacing existing `.codex` configuration.
-
-Team mode uses Luna for Explorer, Librarian, and QA; Terra for Implementer and Debugger; Sol for Architect and Reviewer; and GPT-5.5 only as an explicit fallback. It runs read-only work in parallel, keeps application changes to one writer, and records the consolidated result under `.ohmycodex/plans/team-runs/`. See [Team mode](docs/team-mode.md).
-
-## Compatibility
-
-The package is designed for ChatGPT Work on the web, ChatGPT/Codex Desktop, Codex CLI, and the Codex IDE extension. It uses host-neutral instructions and falls back to conversation-only guidance when the current host cannot write files or run commands. Codex cloud is not a supported claim in v0.2.0.
+When the workspace is writable, OhMyCodex stores project guidance under `.ohmycodex/`. Continuation state lives in `.ohmycodex/runtime/loops/`, with compact audit records in `.ohmycodex/plans/loop-runs/`. These are agent workflow records, not application runtime code.
 
 ## Development
 
 ```bash
+python3 -m unittest discover -s tests -v
 python3 scripts/validate_plugin.py
 python3 /Users/jerrywu/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py plugins/ohmycodex
 ```
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing a skill change. The project is licensed under [MIT](LICENSE).
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before proposing a change. The project is licensed under [MIT](LICENSE).

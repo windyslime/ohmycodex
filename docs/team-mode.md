@@ -1,24 +1,15 @@
 # Team mode
 
-`$ohmycodex-team` brings native Codex subagents into the existing OhMyCodex plugin. It does not add a second plugin or a separate runtime.
+`$omc-team` configures native Codex subagents inside the existing OhMyCodex plugin. It adds no second runtime.
 
-## Enable locally
+The bundled installer copies only missing templates into `.codex/agents/` and adds safe defaults only when the project has no existing `[agents]` section. It never overwrites project-owned agent files or an existing agent configuration.
 
-Ask the Team skill to enable the current repository. It runs its bundled installer, which copies only missing templates into `.codex/agents/` and creates `[agents]` defaults only if the project has no existing `[agents]` section.
+| Role | Model policy | Access |
+| --- | --- | --- |
+| Explorer, Librarian, QA | Luna | Read-only |
+| Architect, Reviewer | Sol | Read-only |
+| Implementer | Terra | Workspace write |
+| Debugger | Terra | Read-only |
+| Fallback | GPT-5.5 | Parent policy |
 
-| Role | Model | Reasoning | Access |
-| --- | --- | --- | --- |
-| Explorer | `gpt-5.6-luna` | low | Read-only |
-| Librarian | `gpt-5.6-luna` | medium | Read-only |
-| QA | `gpt-5.6-luna` | medium | Read-only |
-| Architect | `gpt-5.6` (Sol) | xhigh | Read-only |
-| Implementer | `gpt-5.6-terra` | high | Workspace write |
-| Debugger | `gpt-5.6-terra` | high | Read-only |
-| Reviewer | `gpt-5.6` (Sol) | high | Read-only |
-| Fallback | `gpt-5.5` | high | Parent policy |
-
-## Run safely
-
-Use Team only for independent, multi-file, uncertain, or cross-disciplinary tasks. Run no more than three read-only agents in the first wave. The parent consolidates evidence, Architect follows discovery, one Implementer writes approved changes, and Reviewer follows verification.
-
-If a preferred agent cannot launch, request `omc-fallback` with the original role contract. If the host cannot load local native agents, preserve the same role sequence in the parent task and record a sequential fallback; model pins do not apply in that mode.
+Use Team only for independent investigations. Run at most three read-only roles in the first wave, consolidate in the parent, use one writer for application changes, and review after verification. If native subagents are unavailable, run the same role sequence in the parent and label it sequential fallback; do not claim model pins applied.
