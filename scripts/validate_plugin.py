@@ -16,7 +16,7 @@ SKILLS = PLUGIN / "skills"
 MANIFEST = PLUGIN / ".codex-plugin" / "plugin.json"
 MARKETPLACE = ROOT / ".agents" / "plugins" / "marketplace.json"
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
-REQUIRED_SKILLS = {
+IMPLICIT_SKILLS = {
     "omc-orchestrator",
     "omc-init",
     "omc-discover",
@@ -31,6 +31,8 @@ REQUIRED_SKILLS = {
     "omc-debt",
     "omc-team",
 }
+EXPLICIT_SKILLS = {"omc-doctor"}
+REQUIRED_SKILLS = IMPLICIT_SKILLS | EXPLICIT_SKILLS
 TEAM_AGENTS = PLUGIN / "skills" / "omc-team" / "assets" / "agents"
 TEAM_POLICY = {
     "omc-explorer.toml": ("omc-explorer", "gpt-5.6-luna", "low", "read-only"),
@@ -127,8 +129,10 @@ def validate_skills() -> None:
         interface = metadata.get("interface", {})
         if f"${skill_name}" not in interface.get("default_prompt", ""):
             fail(f"{skill_name} UI metadata must include an explicit default prompt")
-        if metadata.get("policy", {}).get("allow_implicit_invocation") is not True:
-            fail(f"{skill_name} must preserve implicit lifecycle invocation")
+        expected_implicit = skill_name in IMPLICIT_SKILLS
+        if metadata.get("policy", {}).get("allow_implicit_invocation") is not expected_implicit:
+            policy = "implicit" if expected_implicit else "explicit-only"
+            fail(f"{skill_name} must preserve its {policy} invocation policy")
 
 
 def validate_team_agents() -> None:

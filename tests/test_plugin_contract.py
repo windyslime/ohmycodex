@@ -9,34 +9,33 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / "plugins" / "ohmycodex" / "skills"
 MANIFEST = ROOT / "plugins" / "ohmycodex" / ".codex-plugin" / "plugin.json"
+LIFECYCLE_SKILLS = {
+    "omc-orchestrator",
+    "omc-init",
+    "omc-discover",
+    "omc-spec",
+    "omc-architecture",
+    "omc-implement",
+    "omc-qa",
+    "omc-debug",
+    "omc-refactor",
+    "omc-review",
+    "omc-release",
+    "omc-debt",
+    "omc-team",
+}
 
 
 class PluginContractTests(unittest.TestCase):
     def test_existing_skills_use_only_the_omc_namespace(self) -> None:
-        expected = {
-            "omc-orchestrator",
-            "omc-init",
-            "omc-discover",
-            "omc-spec",
-            "omc-architecture",
-            "omc-implement",
-            "omc-qa",
-            "omc-debug",
-            "omc-refactor",
-            "omc-review",
-            "omc-release",
-            "omc-debt",
-            "omc-team",
-        }
-
         discovered = {
             path.name
             for path in SKILLS.iterdir()
             if path.is_dir() and (path / "SKILL.md").is_file()
         }
 
-        self.assertEqual(discovered, expected)
-        self.assertFalse(any(name.startswith("ohmycodex-") for name in discovered))
+        self.assertTrue(LIFECYCLE_SKILLS.issubset(discovered))
+        self.assertTrue(all(name.startswith("omc-") for name in discovered))
 
     def test_skill_frontmatter_name_matches_its_directory(self) -> None:
         for directory in SKILLS.iterdir():
@@ -49,10 +48,8 @@ class PluginContractTests(unittest.TestCase):
             self.assertEqual(match.group(1), directory.name)
 
     def test_lifecycle_metadata_is_structured_and_implicitly_invocable(self) -> None:
-        for directory in SKILLS.iterdir():
-            skill = directory / "SKILL.md"
-            if not directory.is_dir() or not skill.is_file():
-                continue
+        for skill_name in LIFECYCLE_SKILLS:
+            directory = SKILLS / skill_name
             metadata = json.loads(
                 (directory / "agents" / "openai.yaml").read_text(encoding="utf-8")
             )
@@ -71,6 +68,18 @@ class PluginContractTests(unittest.TestCase):
         for prompt in manifest["interface"]["defaultPrompt"]:
             self.assertIn("$omc-", prompt)
             self.assertNotIn("$ohmycodex-", prompt)
+
+    def test_doctor_is_explicit_only_and_uses_the_capability_contract(self) -> None:
+        directory = SKILLS / "omc-doctor"
+        metadata = json.loads(
+            (directory / "agents" / "openai.yaml").read_text(encoding="utf-8")
+        )
+        instructions = (directory / "SKILL.md").read_text(encoding="utf-8")
+
+        self.assertFalse(metadata["policy"]["allow_implicit_invocation"])
+        self.assertIn("$omc-doctor", metadata["interface"]["default_prompt"])
+        self.assertIn("capability-contract.md", instructions)
+        self.assertIn("read-only", instructions.lower())
 
 
 if __name__ == "__main__":

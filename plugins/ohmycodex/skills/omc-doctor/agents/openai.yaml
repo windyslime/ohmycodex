@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "OhMyCodex Doctor",
+    "short_description": "Inspect capabilities and safe degradation routes",
+    "default_prompt": "Use $omc-doctor to inspect this Codex environment safely."
+  },
+  "policy": {
+    "allow_implicit_invocation": false
+  }
+}
