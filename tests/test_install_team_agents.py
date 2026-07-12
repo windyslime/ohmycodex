@@ -8,7 +8,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
-INSTALLER = ROOT / "plugins" / "ohmycodex" / "skills" / "ohmycodex-team" / "scripts" / "install_team_agents.py"
+INSTALLER = ROOT / "plugins" / "ohmycodex" / "skills" / "omc-team" / "scripts" / "install_team_agents.py"
 SPEC = importlib.util.spec_from_file_location("install_team_agents", INSTALLER)
 assert SPEC and SPEC.loader
 MODULE = importlib.util.module_from_spec(SPEC)

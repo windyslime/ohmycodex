@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "Specify the MVP",
+    "short_description": "Define scope and acceptance criteria",
+    "default_prompt": "Use $omc-spec to write a scoped MVP specification."
+  },
+  "policy": {
+    "allow_implicit_invocation": true
+  }
+}

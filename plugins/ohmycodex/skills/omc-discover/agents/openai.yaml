@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "Discover the MVP",
+    "short_description": "Clarify users, outcomes, and MVP scope",
+    "default_prompt": "Use $omc-discover to clarify this product idea."
+  },
+  "policy": {
+    "allow_implicit_invocation": true
+  }
+}

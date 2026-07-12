@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "Design Architecture",
+    "short_description": "Plan modules, contracts, and safe changes",
+    "default_prompt": "Use $omc-architecture to design this approved MVP."
+  },
+  "policy": {
+    "allow_implicit_invocation": true
+  }
+}

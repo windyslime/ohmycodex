@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "Refactor Safely",
+    "short_description": "Improve code without behavior drift",
+    "default_prompt": "Use $omc-refactor to simplify this code safely."
+  },
+  "policy": {
+    "allow_implicit_invocation": true
+  }
+}

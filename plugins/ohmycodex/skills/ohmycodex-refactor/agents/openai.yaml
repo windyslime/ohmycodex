@@ -1,4 +1,0 @@
-interface:
-  display_name: "Refactor Safely"
-  short_description: "Improve code without behavior drift"
-  default_prompt: "Use $ohmycodex-refactor to simplify this code safely."

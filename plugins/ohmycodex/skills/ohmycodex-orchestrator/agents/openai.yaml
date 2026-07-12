@@ -1,4 +1,0 @@
-interface:
-  display_name: "OhMyCodex Orchestrator"
-  short_description: "Route an AI-assisted MVP workflow"
-  default_prompt: "Use $ohmycodex-orchestrator to choose the right engineering workflow."

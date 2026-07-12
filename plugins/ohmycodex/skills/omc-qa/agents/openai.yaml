@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "Verify the Work",
+    "short_description": "Test acceptance paths and regressions",
+    "default_prompt": "Use $omc-qa to verify this implementation."
+  },
+  "policy": {
+    "allow_implicit_invocation": true
+  }
+}

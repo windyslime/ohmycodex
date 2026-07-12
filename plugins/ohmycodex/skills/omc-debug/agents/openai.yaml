@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "Diagnose a Bug",
+    "short_description": "Find root cause before changing code",
+    "default_prompt": "Use $omc-debug to diagnose this failing behavior."
+  },
+  "policy": {
+    "allow_implicit_invocation": true
+  }
+}

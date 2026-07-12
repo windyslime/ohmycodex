@@ -1,4 +1,0 @@
-interface:
-  display_name: "Design Architecture"
-  short_description: "Plan modules, contracts, and safe changes"
-  default_prompt: "Use $ohmycodex-architecture to design this approved MVP."

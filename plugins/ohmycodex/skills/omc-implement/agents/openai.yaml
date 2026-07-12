@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "Implement Safely",
+    "short_description": "Build approved work in verified milestones",
+    "default_prompt": "Use $omc-implement to execute the approved plan."
+  },
+  "policy": {
+    "allow_implicit_invocation": true
+  }
+}

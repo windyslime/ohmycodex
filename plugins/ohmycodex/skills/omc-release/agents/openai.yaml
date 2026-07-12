@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "Prepare a Release",
+    "short_description": "Decide go or no-go with evidence",
+    "default_prompt": "Use $omc-release to assess release readiness."
+  },
+  "policy": {
+    "allow_implicit_invocation": true
+  }
+}

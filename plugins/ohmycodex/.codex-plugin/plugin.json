@@ -1,6 +1,6 @@
 {
   "name": "ohmycodex",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A complete engineering workflow for AI-assisted MVPs in Codex.",
   "author": {
     "name": "Zhengda Wu",
@@ -20,9 +20,9 @@
     "capabilities": ["Write"],
     "websiteURL": "https://github.com/windyslime/ohmycodex",
     "defaultPrompt": [
-      "Use $ohmycodex-orchestrator to turn my app idea into a buildable MVP.",
-      "Use $ohmycodex-review to audit this AI-generated codebase.",
-      "Use $ohmycodex-release to prepare this project for a safe release."
+      "Use $omc-orchestrator to turn my app idea into a buildable MVP.",
+      "Use $omc-review to audit this AI-generated codebase.",
+      "Use $omc-release to prepare this project for a safe release."
     ]
   }
 }

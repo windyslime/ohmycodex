@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "Track Technical Debt",
+    "short_description": "Record intentional engineering trade-offs",
+    "default_prompt": "Use $omc-debt to record this technical debt."
+  },
+  "policy": {
+    "allow_implicit_invocation": true
+  }
+}

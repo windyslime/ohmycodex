@@ -1,4 +1,0 @@
-interface:
-  display_name: "Diagnose a Bug"
-  short_description: "Find root cause before changing code"
-  default_prompt: "Use $ohmycodex-debug to diagnose this failing behavior."

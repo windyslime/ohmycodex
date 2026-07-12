@@ -17,21 +17,21 @@ MANIFEST = PLUGIN / ".codex-plugin" / "plugin.json"
 MARKETPLACE = ROOT / ".agents" / "plugins" / "marketplace.json"
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 REQUIRED_SKILLS = {
-    "ohmycodex-orchestrator",
-    "ohmycodex-init",
-    "ohmycodex-discover",
-    "ohmycodex-spec",
-    "ohmycodex-architecture",
-    "ohmycodex-implement",
-    "ohmycodex-qa",
-    "ohmycodex-debug",
-    "ohmycodex-refactor",
-    "ohmycodex-review",
-    "ohmycodex-release",
-    "ohmycodex-debt",
-    "ohmycodex-team",
+    "omc-orchestrator",
+    "omc-init",
+    "omc-discover",
+    "omc-spec",
+    "omc-architecture",
+    "omc-implement",
+    "omc-qa",
+    "omc-debug",
+    "omc-refactor",
+    "omc-review",
+    "omc-release",
+    "omc-debt",
+    "omc-team",
 }
-TEAM_AGENTS = PLUGIN / "skills" / "ohmycodex-team" / "assets" / "agents"
+TEAM_AGENTS = PLUGIN / "skills" / "omc-team" / "assets" / "agents"
 TEAM_POLICY = {
     "omc-explorer.toml": ("omc-explorer", "gpt-5.6-luna", "low", "read-only"),
     "omc-librarian.toml": ("omc-librarian", "gpt-5.6-luna", "medium", "read-only"),
@@ -64,8 +64,11 @@ def validate_manifest() -> None:
         fail(f"plugin manifest is missing: {', '.join(sorted(missing))}")
     if manifest["name"] != "ohmycodex" or manifest["skills"] != "./skills/":
         fail("plugin manifest must identify ohmycodex and ./skills/")
-    if manifest["version"] != "0.2.0":
-        fail("plugin manifest must use the planned 0.2.0 release version")
+    version, separator, metadata = manifest["version"].partition("+")
+    if version != "0.3.0":
+        fail("plugin manifest must use the planned 0.3.0 release version")
+    if separator and (not metadata.startswith("codex.") or "+" in metadata):
+        fail("plugin manifest may use only one +codex.* cachebuster suffix")
     if manifest["license"] != "MIT":
         fail("plugin manifest must declare MIT")
     interface = manifest["interface"]
@@ -117,11 +120,15 @@ def validate_skills() -> None:
             fail(f"{skill_name} must match its valid folder name")
         if len(description) > 240:
             fail(f"{skill_name} description must stay concise for skill discovery")
-        metadata = directory / "agents" / "openai.yaml"
-        if not metadata.is_file():
+        metadata_path = directory / "agents" / "openai.yaml"
+        if not metadata_path.is_file():
             fail(f"{skill_name} is missing agents/openai.yaml")
-        if f"${skill_name}" not in metadata.read_text(encoding="utf-8"):
+        metadata = read_json(metadata_path)
+        interface = metadata.get("interface", {})
+        if f"${skill_name}" not in interface.get("default_prompt", ""):
             fail(f"{skill_name} UI metadata must include an explicit default prompt")
+        if metadata.get("policy", {}).get("allow_implicit_invocation") is not True:
+            fail(f"{skill_name} must preserve implicit lifecycle invocation")
 
 
 def validate_team_agents() -> None:

@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "Review the Change",
+    "short_description": "Audit code against the active specification",
+    "default_prompt": "Use $omc-review to inspect this change."
+  },
+  "policy": {
+    "allow_implicit_invocation": true
+  }
+}

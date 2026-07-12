@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "Initialize OhMyCodex",
+    "short_description": "Create durable project engineering context",
+    "default_prompt": "Use $omc-init to initialize this project workspace."
+  },
+  "policy": {
+    "allow_implicit_invocation": true
+  }
+}

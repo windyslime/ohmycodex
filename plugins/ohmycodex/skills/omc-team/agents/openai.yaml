@@ -1,0 +1,10 @@
+{
+  "interface": {
+    "display_name": "OhMyCodex Team",
+    "short_description": "Configure and run native subagent teams",
+    "default_prompt": "Use $omc-team to delegate this complex task safely."
+  },
+  "policy": {
+    "allow_implicit_invocation": true
+  }
+}
